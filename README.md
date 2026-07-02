@@ -6,12 +6,12 @@
 
 Audit SDK examples for hardcoded keys, missing errors, and outdated imports. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
 
-## Input Contract 12
+## Input Contract
 
 Accepts SDK example file. The reader supports plain text, JSON, JSONL, and CSV so the
 tool can fit into scripts, CI jobs, and review exports.
 
-## CLI Walkthrough 12
+## CLI Walkthrough
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -20,7 +20,7 @@ sdk-example-check examples/sample.txt --json --fail-on medium
 python -m sdk_example_check --help
 ```
 
-## Rule Surface 12
+## Rule Surface
 
 | Rule | Severity | Meaning |
 |---|---:|---|
@@ -28,7 +28,7 @@ python -m sdk_example_check --help
 | `missing-errors` | medium | error handling is missing |
 | `old-import` | low | outdated import noted |
 
-## Validation Notes 12
+## Validation Notes
 
 ```bash
 ruff check .
