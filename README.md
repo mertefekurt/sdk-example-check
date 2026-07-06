@@ -1,41 +1,34 @@
-<img src="assets/readme-cover.svg" alt="SDK Example Check cover" width="100%" />
-
 # SDK Example Check
 
-Audit SDK examples for hardcoded keys, missing errors, and outdated imports.
+Audit SDK examples for hardcoded keys, missing errors, and outdated imports. I keep it small because this kind of check is most useful when it can run beside the work, not after the work has already shipped.
 
-![stack](https://img.shields.io/badge/stack-Python-dc2626?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-7c3aed?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-0891b2?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-b45309?style=flat-square)
+<img src="assets/readme-cover.svg" alt="SDK Example Check cover" width="100%" />
 
-## Workflow
+## Review checklist
 
-1. Collect the review notes or exported records.
-2. Run `sdk-example-check` against the file.
-3. Read the findings in Markdown, or switch to JSON for automation.
-4. Fail CI only at the severity level you care about.
+- [ ] API key appears hardcoded (`hardcoded-key`, high)
+- [ ] error handling is missing (`missing-errors`, medium)
+- [ ] outdated import noted (`old-import`, low)
 
-## Checks
-
-| Rule | Severity | What it catches |
-| --- | --- | --- |
-| `hardcoded-key` | high | API key appears hardcoded |
-| `missing-errors` | medium | error handling is missing |
-| `old-import` | low | outdated import noted |
-
-## Command line
+## Command path
 
 ```bash
+git clone https://github.com/mertefekurt/sdk-example-check.git
+cd sdk-example-check
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -e ".[dev]"
 sdk-example-check examples/sample.txt
-sdk-example-check examples/sample.txt --json --fail-on medium
+sdk-example-check examples/sample.txt --json
 ```
 
-## Sample risky input
+## Fixture worth keeping
 
 ```text
 api_key sk_live_123 error handling missing old_import true
 ```
 
-## Project shape
+## Files I look at first
 
 ```text
 .github/        CI workflow
