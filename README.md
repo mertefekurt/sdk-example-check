@@ -1,48 +1,47 @@
-# sdk-example-check
+<img src="assets/readme-cover.svg" alt="SDK Example Check cover" width="100%" />
 
-> Audit SDK examples for hardcoded keys, missing errors, and outdated imports.
+# SDK Example Check
 
-## Operator guide Overview
+Audit SDK examples for hardcoded keys, missing errors, and outdated imports.
 
-Audit SDK examples for hardcoded keys, missing errors, and outdated imports. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
+![stack](https://img.shields.io/badge/stack-Python-dc2626?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-7c3aed?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-0891b2?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-b45309?style=flat-square)
 
-## Input Contract
+## Workflow
 
-Accepts SDK example file. The reader supports plain text, JSON, JSONL, and CSV so the
-tool can fit into scripts, CI jobs, and review exports.
+1. Collect the review notes or exported records.
+2. Run `sdk-example-check` against the file.
+3. Read the findings in Markdown, or switch to JSON for automation.
+4. Fail CI only at the severity level you care about.
 
-## CLI Walkthrough
+## Checks
+
+| Rule | Severity | What it catches |
+| --- | --- | --- |
+| `hardcoded-key` | high | API key appears hardcoded |
+| `missing-errors` | medium | error handling is missing |
+| `old-import` | low | outdated import noted |
+
+## Command line
 
 ```bash
 python -m pip install -e ".[dev]"
 sdk-example-check examples/sample.txt
 sdk-example-check examples/sample.txt --json --fail-on medium
-python -m sdk_example_check --help
 ```
 
-## Rule Surface
-
-| Rule | Severity | Meaning |
-|---|---:|---|
-| `hardcoded-key` | high | API key appears hardcoded |
-| `missing-errors` | medium | error handling is missing |
-| `old-import` | low | outdated import noted |
-
-## Validation Notes
-
-```bash
-ruff check .
-pytest
-python -m sdk_example_check --help
-```
-
-Example risky input:
+## Sample risky input
 
 ```text
 api_key sk_live_123 error handling missing old_import true
 ```
 
-Architecture: `cli.py` handles arguments, `core.py` reads and evaluates records, and
-`rules.py` keeps the project-specific policy explicit.
+## Project shape
 
-License: MIT.
+```text
+.github/        CI workflow
+examples/       sample inputs
+src/            package source
+tests/          test coverage
+.gitignore      project file
+pyproject.toml  package metadata
+```
